@@ -1,0 +1,16 @@
+{
+  "id": "/",
+  "name": "BizManager — Gestion d'entreprise",
+  "short_name": "BizManager",
+  "description": "Gérez, suivez et développez votre entreprise.",
+  "lang": "fr",
+  "start_url": "/dashboard",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    {"src": "/bizmanager-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+  ]
+}
