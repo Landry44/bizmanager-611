@@ -45,7 +45,7 @@ export default function AppNav() {
     return () => { window.removeEventListener("beforeinstallprompt", onInstall); window.removeEventListener("appinstalled", onInstalled); };
   }, [path]);
 
-  if (path === "/" || path === "/login" || path === "/register") return null;
+  
 
   async function installApp() {
     if (isInstalled) return;
