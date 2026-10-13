@@ -48,4 +48,4 @@ export async function POST(
   } catch (e: any) {
     return NextResponse.json({ error: e?.issues || "Erreur" }, { status: 400 });
   }
-} Correction customer v6.1.2
+}
