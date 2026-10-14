@@ -1,53 +1,9 @@
-"use client";
 import Link from "next/link";
 import { getCurrentUser } from "@/src/lib/auth";
-import { useEffect, useState } from "react";
+import InstallButton from "./InstallButton";
 
 export default function Page() {
   let connected = false;
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-  const [isInstalled, setIsInstalled] = useState(false);
-
-  useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js").catch(() => {});
-    }
-    const onInstall = (e: any) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-    };
-    const onInstalled = () => {
-      setIsInstalled(true);
-      setDeferredPrompt(null);
-    };
-    window.addEventListener("beforeinstallprompt", onInstall);
-    window.addEventListener("appinstalled", onInstalled);
-    if (window.matchMedia("(display-mode: standalone)").matches) {
-      setIsInstalled(true);
-    }
-    return () => {
-      window.removeEventListener("beforeinstallprompt", onInstall);
-      window.removeEventListener("appinstalled", onInstalled);
-    };
-  }, []);
-
-  async function handleInstall() {
-    if (isInstalled) return;
-    if (!deferredPrompt) {
-      alert(
-        "Pour installer BizManager :\n\n" +
-          "• Sur iPhone (Safari) : bouton Partager → « Sur l'écran d'accueil »\n" +
-          "• Sur Android (Chrome) : menu ⋮ → « Installer l'application »\n" +
-          "• Sur PC (Chrome/Edge) : icône ⊕ dans la barre d'adresse"
-      );
-      return;
-    }
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === "accepted") setIsInstalled(true);
-    setDeferredPrompt(null);
-  }
-
   try {
     connected = !!(getCurrentUser());
   } catch {}
@@ -56,8 +12,7 @@ export default function Page() {
     <main
       style={{
         minHeight: "100vh",
-        background:
-          "linear-gradient(135deg,#0f172a,#1e3a8a 55%,#2563eb)",
+        background: "linear-gradient(135deg,#0f172a,#1e3a8a 55%,#2563eb)",
         color: "white",
         fontFamily: "Arial,sans-serif",
       }}
@@ -89,25 +44,15 @@ export default function Page() {
           />
         </div>
 
-        <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-          {!isInstalled && (
-            <button
-              onClick={handleInstall}
-              style={{
-                background: "#22c55e",
-                color: "white",
-                border: "none",
-                borderRadius: 10,
-                padding: "11px 18px",
-                fontWeight: 700,
-                fontSize: 14,
-                cursor: "pointer",
-              }}
-            >
-              ↓ Installer
-            </button>
-          )}
-
+        <div
+          style={{
+            display: "flex",
+            gap: 10,
+            alignItems: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          <InstallButton />
           <Link
             href={connected ? "/dashboard" : "/register"}
             style={{
@@ -171,7 +116,14 @@ export default function Page() {
             Ventes, stock, achats, clients, fournisseurs, trésorerie, documents et
             rapports. Une plateforme pensée pour les entreprises modernes.
           </p>
-          <div style={{ marginTop: 30, display: "flex", gap: 12, flexWrap: "wrap" }}>
+          <div
+            style={{
+              marginTop: 30,
+              display: "flex",
+              gap: 12,
+              flexWrap: "wrap",
+            }}
+          >
             <Link
               href={connected ? "/dashboard" : "/register"}
               style={{
@@ -249,7 +201,9 @@ export default function Page() {
         }}
       >
         <div style={{ maxWidth: 1180, margin: "auto" }}>
-          <h2 style={{ fontSize: 32, marginTop: 0 }}>Tout ce qu'il faut pour piloter</h2>
+          <h2 style={{ fontSize: 32, marginTop: 0 }}>
+            Tout ce qu'il faut pour piloter
+          </h2>
           <p style={{ opacity: 0.7, maxWidth: 720 }}>
             BizManager centralise vos opérations : du point de vente aux rapports
             avancés, avec une expérience rapide et sécurisée.
