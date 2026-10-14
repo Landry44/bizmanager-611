@@ -6,7 +6,7 @@ export default async function Page(){
   try { connected=!!(await getCurrentUser()); } catch {}
   return <main style={{minHeight:"100vh",background:"linear-gradient(135deg,#0f172a,#1e3a8a 55%,#2563eb)",color:"white",fontFamily:"Arial,sans-serif"}}>
     <nav className="bm-home-nav bm-home-container" style={{maxWidth:1180,margin:"0 auto",padding:"24px 28px",display:"flex",justifyContent:"space-between",alignItems:"center",gap:16}}>
-      <div style={{fontSize:25,fontWeight:800,whiteSpace:"nowrap"}}>♥ BizManager</div>
+      <div style={{minWidth:0}}><img src="/bizmanager-logo.svg" alt="BizManager — Gérez, suivez, développez" style={{display:"block",width:240,maxWidth:"65vw",height:"auto"}} /></div>
       <Link href={connected?"/dashboard":"/register"} style={{color:"#0f172a",textDecoration:"none",background:"white",padding:"11px 18px",borderRadius:10,fontWeight:700,whiteSpace:"nowrap"}}>{connected?"Ouvrir mon espace":"Créer un compte"}</Link>
     </nav>
     <section className="bm-home-hero bm-home-container" style={{maxWidth:1180,margin:"0 auto",padding:"80px 28px 100px",display:"grid",gridTemplateColumns:"1.2fr .8fr",gap:50,alignItems:"center"}}>
