@@ -118,3 +118,25 @@ button{min-height:40px}
   .bm-subscription-hero{padding:14px!important}
 }
 @media(min-width:761px){.bm-mobile-nav{position:relative;z-index:20}.bm-nav-menu{display:flex!important}}
+/* ===== CORRECTION RESPONSIVE MOBILE V6.2 ===== */
+@media (max-width: 768px) {
+  .bm-home-container {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+  .bm-home-hero {
+    grid-template-columns: 1fr !important;
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+    gap: 30px !important;
+  }
+  h1 {
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+  }
+  .bm-home-nav {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 15px !important;
+  }
+}
