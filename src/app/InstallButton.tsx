@@ -6,22 +6,32 @@ export default function InstallButton() {
   const [isInstalled, setIsInstalled] = useState(false);
 
   useEffect(() => {
+    // Enregistrement du Service Worker
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js").catch(() => {});
+      navigator.serviceWorker.register("/sw.js")
+        .then(reg => console.log("Service Worker enregistré:", reg.scope))
+        .catch(err => console.error("Erreur Service Worker:", err));
     }
+
+    // Écoute de l'événement d'installation
     const onInstall = (e: any) => {
+      console.log("beforeinstallprompt déclenché !");
       e.preventDefault();
       setDeferredPrompt(e);
     };
+    
     const onInstalled = () => {
       setIsInstalled(true);
       setDeferredPrompt(null);
     };
+
     window.addEventListener("beforeinstallprompt", onInstall);
     window.addEventListener("appinstalled", onInstalled);
+
     if (window.matchMedia("(display-mode: standalone)").matches) {
       setIsInstalled(true);
     }
+
     return () => {
       window.removeEventListener("beforeinstallprompt", onInstall);
       window.removeEventListener("appinstalled", onInstalled);
@@ -30,18 +40,27 @@ export default function InstallButton() {
 
   async function handleInstall() {
     if (isInstalled) return;
+    
+    // Si le navigateur n'a pas encore validé la PWA
     if (!deferredPrompt) {
       alert(
-        "Pour installer BizManager :\n\n" +
-          "• Sur iPhone (Safari) : bouton Partager → « Sur l'écran d'accueil »\n" +
-          "• Sur Android (Chrome) : menu ⋮ → « Installer l'application »\n" +
-          "• Sur PC (Chrome/Edge) : icône ⊕ dans la barre d'adresse"
+        "L'application n'est pas encore prête à s'installer automatiquement.\n\n" +
+        "• Sur PC : Cliquez sur l'icône ⊕ dans la barre d'adresse (Chrome/Edge).\n" +
+        "• Sur Android : Menu ⋮ > Installer l'application.\n" +
+        "• Sur iPhone : Partager > Sur l'écran d'accueil.\n\n" +
+        "Astuce : Revenez visiter le site dans quelques minutes, Chrome valide le site automatiquement."
       );
       return;
     }
+    
+    // Déclenchement de l'installation native
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === "accepted") setIsInstalled(true);
+    console.log("Choix de l'utilisateur:", outcome);
+    
+    if (outcome === "accepted") {
+      setIsInstalled(true);
+    }
     setDeferredPrompt(null);
   }
 
