@@ -27,7 +27,8 @@ export async function POST(request:Request,{params}:{params:Promise<{companyId:s
 export async function PUT(request:Request,{params}:{params:Promise<{companyId:string}>}){
  try{
   const {companyId}=await params;
-  const membership=await requireMembership(companyId,["OWNER","ADMIN"]);
+  // ✅ CORRECTION ICI : on ajoute ": any" pour que TypeScript accepte la propriété userId
+  const membership: any = await requireMembership(companyId,["OWNER","ADMIN"]);
   const sub=await getSubscription(companyId);
   const plan=sub.plan;
   if(plan==="FREE") return NextResponse.json({error:"Choisissez d'abord une formule Basic ou Avancé."},{status:400});
