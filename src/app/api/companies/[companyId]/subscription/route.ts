@@ -1,4 +1,7 @@
-export const dynamic = "force-dynamic";\nexport const runtime = "nodejs";\n\nimport {NextResponse} from "next/server";
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
+import {NextResponse} from "next/server";
 import {z} from "zod";
 import {requireMembership} from "@/src/lib/auth";
 import {db} from "@/src/lib/db";
