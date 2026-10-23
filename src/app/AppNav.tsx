@@ -62,7 +62,7 @@ export default function AppNav() {
   return <header className="bm-mobile-nav" style={{ background: "#0f172a", color: "white", padding: "12px 18px", boxShadow: "0 3px 15px #0f172a22" }}>
     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
       <Link href="/dashboard" style={{ color: "white", fontWeight: 900, fontSize: 20, textDecoration: "none", whiteSpace: "nowrap" }}>
-        <img src="/bizmanager-logo.svg" alt="BizManager" style={{ display: "block", width: 205, height: 55, objectFit: "contain" }} />
+        <img src="/bizmanager-logo.svg" alt="BizManager" style={{ display: "block", width: "min(205px, 44vw)", maxWidth: "100%", height: "auto", maxHeight: 48, objectFit: "contain" }} />
       </Link>
       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
         {!isInstalled && <button onClick={installApp} aria-label="Installer BizManager" style={{ background: "linear-gradient(135deg,#2563eb,#7c3aed)", color: "white", border: "1px solid #ffffff35", borderRadius: 10, padding: "10px 12px", minHeight: 44, fontWeight: 800, fontSize: 12, cursor: "pointer", whiteSpace: "nowrap" }}>↓ Installer</button>}
